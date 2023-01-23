@@ -1,0 +1,25 @@
+.all{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../assets/3.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+}
+.input{
+    border: 1px solid rgb(195, 199, 195);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.btn2{
+    width: 400px;
+    height: 40px;
+    border: 1px solid #02B589;
+    border-radius: 20px;
+    background-color: #02B589;
+    color: #eee;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 30px;
+}
