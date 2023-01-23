@@ -74,9 +74,9 @@ export const Login = () => {
             }}
           >
             <div style={{ margin: 20 }}>
-              <div style={{ marginLeft: 20 }}>Email</div>
+              <div style={{ marginLeft: 20 }}>Username</div>
               <input
-                placeholder="   name@mail.domian"
+                placeholder="  enter your username"
                 style={{
                   width: 400,
                   height: 30,

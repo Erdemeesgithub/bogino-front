@@ -1,8 +1,20 @@
 import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios"
+
+
+
 
 export const Signup = () => {
+    const baseurl = "http://localhost:1111/"
+
+//  useEffect(() => {
+//     axios.post(baseurl + "users")
+//  })
+
+
   return (
     <div className={styles.all}>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -74,9 +86,9 @@ export const Signup = () => {
             }}
           >
             <div style={{ margin: 20 }}>
-              <div style={{ marginLeft: 20 }}>Email</div>
+              <div style={{ marginLeft: 20 }}>Username</div>
               <input
-                placeholder="   name@mail.domian"
+                placeholder="   enter your username"
                 style={{
                   width: 400,
                   height: 30,
@@ -100,9 +112,9 @@ export const Signup = () => {
               ></input>
             </div>
             <div style={{ margin: 20 }}>
-              <div style={{ marginLeft: 20 }}>Confirm Password</div>
+              <div style={{ marginLeft: 20 }}>Email</div>
               <input
-                placeholder="   ●●●●●●●●●●"
+                placeholder="   name@mail.domian"
                 style={{
                   width: 400,
                   height: 30,
