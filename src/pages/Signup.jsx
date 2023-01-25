@@ -13,11 +13,6 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  //  useEffect(() => {
-  //     axios.post(baseurl + "signup")
-  //  })
-
-
   const Signup = () => {
     const user = {
       username: username,
