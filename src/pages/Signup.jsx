@@ -2,19 +2,31 @@ import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios"
-
-
-
+import axios from "axios";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
-    const baseurl = "http://localhost:1111/"
+  const baseurl = "http://localhost:1111/";
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-//  useEffect(() => {
-//     axios.post(baseurl + "users")
-//  })
+  //  useEffect(() => {
+  //     axios.post(baseurl + "signup")
+  //  })
 
 
+  const Signup = () => {
+    const user = {
+      username: username,
+      password: password,
+      email: email
+    }
+    navigate("/login");
+    axios.post(baseurl + "signup", user)
+  }
   return (
     <div className={styles.all}>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -89,6 +101,10 @@ export const Signup = () => {
               <div style={{ marginLeft: 20 }}>Username</div>
               <input
                 placeholder="   enter your username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                value={username}
                 style={{
                   width: 400,
                   height: 30,
@@ -102,6 +118,10 @@ export const Signup = () => {
               <div style={{ marginLeft: 20 }}>Password</div>
               <input
                 placeholder="   ●●●●●●●●●●"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
                 style={{
                   width: 400,
                   height: 30,
@@ -115,6 +135,10 @@ export const Signup = () => {
               <div style={{ marginLeft: 20 }}>Email</div>
               <input
                 placeholder="   name@mail.domian"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
                 style={{
                   width: 400,
                   height: 30,
@@ -139,15 +163,17 @@ export const Signup = () => {
               flexDirection: "column",
             }}
           >
-            <button className={styles.btn2}>Sign up</button>
+            <button className={styles.btn2} onClick={Signup}>Sign up</button>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center"
+                alignContent: "center",
               }}
             >
-              <Link style={{color: "black", fontWeight: "bold"}} to="/login">Already have an account?</Link>
+              <Link style={{ color: "black", fontWeight: "bold" }} to="/login">
+                Already have an account?
+              </Link>
             </div>
           </div>
         </div>
