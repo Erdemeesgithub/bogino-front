@@ -1,10 +1,9 @@
 import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const baseurl = "http://localhost:1111/";

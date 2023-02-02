@@ -1,8 +1,32 @@
 import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 export const Login = () => {
+  const baseurl = "http://localhost:1111/";
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const Login = async () => {
+    const user = {
+      username: username,
+      password: password,
+    };
+    navigate("/");
+    axios.post(baseurl + "login", user).then(res => {
+      console.log(res)
+      localStorage.setItem("webtoken",res.data)
+      alert(localStorage.getItem("webtoken"));
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+
+
   return (
     <div className={styles.all}>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -77,6 +101,10 @@ export const Login = () => {
               <div style={{ marginLeft: 20 }}>Username</div>
               <input
                 placeholder="  enter your username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                value={username}
                 style={{
                   width: 400,
                   height: 30,
@@ -89,6 +117,10 @@ export const Login = () => {
             <div style={{ margin: 20 }}>
               <div style={{ marginLeft: 20 }}>Password</div>
               <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
                 placeholder="   ●●●●●●●●●●"
                 style={{
                   width: 400,
@@ -128,15 +160,19 @@ export const Login = () => {
               flexDirection: "column",
             }}
           >
-            <button className={styles.btn2}>Log in</button>
+            <button className={styles.btn2} onClick={Login}>
+              Log in
+            </button>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
-                alignContent: "center"
+                alignContent: "center",
               }}
             >
-              <Link style={{color: "black", fontWeight: "bold"}} to="/signup">Are you new? Sign up!</Link>
+              <Link style={{ color: "black", fontWeight: "bold" }} to="/signup">
+                Are you new? Sign up!
+              </Link>
             </div>
           </div>
         </div>
