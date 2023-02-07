@@ -13,13 +13,13 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
 
   const Signup = () => {
-    const user = {
+    const userr = {
       username: username,
       password: password,
       email: email
     }
     navigate("/login");
-    axios.post(baseurl + "signup", user)
+    axios.post(baseurl + "signup", userr)
   }
   return (
     <div className={styles.all}>

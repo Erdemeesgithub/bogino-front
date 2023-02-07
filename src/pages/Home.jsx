@@ -1,8 +1,45 @@
 import styles from "../styles/Home.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import SpinnerW from "./Spinner";
+
+const baseUrl = "http://localhost:1111/";
 
 export const Home = () => {
+  const [values, setValues] = useState("");
+  const token = localStorage.getItem("webtoken")
+
+  function test() {
+    const user = localStorage.getItem("user");
+    console.log(user);
+  }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  function createUrl() {
+    console.log(values.longUrl);
+    axios
+      .post(baseUrl + "urls", {
+        longUrl: values.longUrl,
+        // username: ,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
+  if (!token) {
+    return <SpinnerW/>;
+  } 
+
   return (
     <div className={styles.all}>
       <div className={styles.container}>
@@ -21,7 +58,9 @@ export const Home = () => {
             >
               WANT SOMETHING ELSE? PRESS ME
             </a>
-            <Link className={styles.btn1} to="/login">Login</Link>
+            <Link className={styles.btn1} to="/login">
+              Login
+            </Link>
           </div>
         </div>
         <div
@@ -56,7 +95,7 @@ export const Home = () => {
                 }}
                 className={styles.input}
               ></input>
-              <button className={styles.btn2}>SHORTEN URL</button>
+              <button className={styles.btn2} onClick={test}>SHORTEN URL</button>
             </div>
           </div>
         </div>

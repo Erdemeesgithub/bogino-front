@@ -18,9 +18,10 @@ export const Login = () => {
     };
     navigate("/");
     axios.post(baseurl + "login", user).then(res => {
-      console.log(res)
       localStorage.setItem("webtoken",res.data)
       alert(localStorage.getItem("webtoken"));
+      localStorage.setItem("user",JSON.stringify(user))
+    
     }).catch(err => {
       console.log(err)
     })
