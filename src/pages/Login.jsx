@@ -16,12 +16,18 @@ export const Login = () => {
       username: username,
       password: password,
     };
-    navigate("/");
+    const pass =  localStorage.getItem("password")
+      
+    if (password!= pass) {
+      alert("wrong pass")
+    } else {
+      navigate("/home");
+      console.log("aaaa")
+    }
     axios.post(baseurl + "login", user).then(res => {
+      localStorage.setItem("user",JSON.stringify(user))
       localStorage.setItem("webtoken",res.data)
       alert(localStorage.getItem("webtoken"));
-      localStorage.setItem("user",JSON.stringify(user))
-    
     }).catch(err => {
       console.log(err)
     })

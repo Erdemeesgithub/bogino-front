@@ -4,41 +4,65 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import SpinnerW from "./Spinner";
+import { useEffect } from "react";
 
 const baseUrl = "http://localhost:1111/";
 
 export const Home = () => {
   const [values, setValues] = useState("");
-  const token = localStorage.getItem("webtoken")
+  const [data, setData] = useState("");
+  const token = localStorage.getItem("webtoken");
 
-  function test() {
-    const user = localStorage.getItem("user");
-    console.log(user);
-  }
+  useEffect(() => {
+    axios
+      .get(baseUrl + "urls")
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setValues({
+  //     ...values,
+  //     [name]: value,
+  //   });
+  // };
+
+  // function createUrl() {
+  //   console.log(values.longUrl);
+  //   axios
+  //     .post(baseUrl + "urls", {
+  //       longUrl: values.longUrl,
+  //       // username: ,
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     });
+  // }
+
+  const Url = ({ element }) => {
+    return (
+      <>
+        <div style={{ marginTop: "20px" }}>
+          {element.longUrl}
+          <h5>original Url</h5>
+        </div>
+        <div style={{ marginTop: "20px" }}>
+          {element.shortUrl}
+          <h5>shortened Url</h5>
+        </div>
+      </>
+    );
   };
 
-  function createUrl() {
-    console.log(values.longUrl);
-    axios
-      .post(baseUrl + "urls", {
-        longUrl: values.longUrl,
-        // username: ,
-      })
-      .then((response) => {
-        console.log(response.data);
-      });
-  }
-
   if (!token) {
-    return <SpinnerW/>;
-  } 
+    return <SpinnerW />;
+  }
 
   return (
     <div className={styles.all}>
@@ -95,10 +119,16 @@ export const Home = () => {
                 }}
                 className={styles.input}
               ></input>
-              <button className={styles.btn2} onClick={test}>SHORTEN URL</button>
+              <button className={styles.btn2}>SHORTEN URL</button>
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        {data &&
+          data.map((url) => {
+            return <Url element={url} />;
+          })}
       </div>
     </div>
   );

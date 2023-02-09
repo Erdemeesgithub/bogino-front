@@ -20,6 +20,7 @@ export const Signup = () => {
     }
     navigate("/login");
     axios.post(baseurl + "signup", userr)
+    localStorage.setItem("password", userr.password)
   }
   return (
     <div className={styles.all}>
