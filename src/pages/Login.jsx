@@ -16,23 +16,27 @@ export const Login = () => {
       username: username,
       password: password,
     };
-    const pass =  localStorage.getItem("password")
-      
-    if (password!= pass) {
-      alert("wrong pass")
+    const pass = localStorage.getItem("password");
+    const name = localStorage.getItem("username");
+
+    if (password !== pass) {
+      alert("wrongpass");
+    } else if (username !== name) {
+      alert("wrong username");
     } else {
       navigate("/home");
-      console.log("aaaa")
     }
-    axios.post(baseurl + "login", user).then(res => {
-      localStorage.setItem("user",JSON.stringify(user))
-      localStorage.setItem("webtoken",res.data)
-      alert(localStorage.getItem("webtoken"));
-    }).catch(err => {
-      console.log(err)
-    })
+    axios
+      .post(baseurl + "login", user)
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("webtoken", res.data);
+        alert(localStorage.getItem("webtoken"));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
 
   return (
     <div className={styles.all}>

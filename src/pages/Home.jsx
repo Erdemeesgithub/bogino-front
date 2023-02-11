@@ -1,10 +1,11 @@
 import styles from "../styles/Home.module.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import SpinnerW from "./Spinner";
 import { useEffect } from "react";
+import { UserContext } from "../context/userContext";
 
 const baseUrl = "http://localhost:1111/";
 
@@ -12,6 +13,8 @@ export const Home = () => {
   const [values, setValues] = useState("");
   const [data, setData] = useState("");
   const token = localStorage.getItem("webtoken");
+  const user = useContext(UserContext);
+  console.log(user);
 
   useEffect(() => {
     axios
@@ -25,25 +28,26 @@ export const Home = () => {
       });
   }, []);
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value,
-  //   });
-  // };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
-  // function createUrl() {
-  //   console.log(values.longUrl);
-  //   axios
-  //     .post(baseUrl + "urls", {
-  //       longUrl: values.longUrl,
-  //       // username: ,
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     });
-  // }
+  function createUrl() {
+    console.log(values.longUrl);
+
+    axios
+      .post(baseUrl + "url/" + user.uid, {
+        longUrl: values.longUrl,
+        // createdBy: user.uid,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
 
   const Url = ({ element }) => {
     return (
@@ -110,6 +114,9 @@ export const Home = () => {
             <div>
               <input
                 placeholder="    ENTER THE LINK HERE"
+                onChange={handleInputChange}
+                name="longUrl"
+                value={values.longUrl}
                 style={{
                   width: 400,
                   height: 30,
@@ -119,7 +126,7 @@ export const Home = () => {
                 }}
                 className={styles.input}
               ></input>
-              <button className={styles.btn2}>SHORTEN URL</button>
+              <button className={styles.btn2} onClick={createUrl}>SHORTEN URL</button>
             </div>
           </div>
         </div>

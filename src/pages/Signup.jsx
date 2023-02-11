@@ -21,6 +21,7 @@ export const Signup = () => {
     navigate("/login");
     axios.post(baseurl + "signup", userr)
     localStorage.setItem("password", userr.password)
+    localStorage.setItem("username", userr.username)
   }
   return (
     <div className={styles.all}>
