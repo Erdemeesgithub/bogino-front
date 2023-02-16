@@ -15,10 +15,18 @@ export const Home = () => {
   const token = localStorage.getItem("webtoken");
   const user = useContext(UserContext);
   console.log(user);
+  const id = user.id;
 
   useEffect(() => {
+    // axios
+    //   .get("http://localhost:1111/url?userId=63ee0aceff6339af312db2ef")
+    //   .then((res) => console.log(res))
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     axios
-      .get(baseUrl + "urls")
+      .get(baseUrl + "url?userId=" + id)
       .then((res) => {
         setData(res.data);
         console.log(res.data);
@@ -37,15 +45,16 @@ export const Home = () => {
   };
 
   function createUrl() {
-    console.log(values.longUrl);
-
     axios
-      .post(baseUrl + "url/" + user.uid, {
+      .post(baseUrl + "urls", {
         longUrl: values.longUrl,
-        // createdBy: user.uid,
+        userId: id,
       })
       .then((response) => {
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -126,7 +135,9 @@ export const Home = () => {
                 }}
                 className={styles.input}
               ></input>
-              <button className={styles.btn2} onClick={createUrl}>SHORTEN URL</button>
+              <button className={styles.btn2} onClick={createUrl}>
+                SHORTEN URL
+              </button>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { UserProvider } from "./context/userContext";
 function App() {
   return (
     <div>
-      {/* <UserProvider> */}
+      <UserProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -15,7 +15,7 @@ function App() {
             <Route path="/home" element={<Home />} />
           </Routes>
         </BrowserRouter>
-      {/* </UserProvider> */}
+      </UserProvider>
     </div>
   );
 }
